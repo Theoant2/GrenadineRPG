@@ -234,4 +234,4 @@ exports.getInfosMusique = (send) => {
 
 
 
-bot.login('MzQwNjA2MDE2Mjg4NzE4ODQ4.DF09nQ.t8pT5bBzWCLGi_RtRKeL9Nrb2kg')
+bot.login(process.env.BOT_TOKEN)
