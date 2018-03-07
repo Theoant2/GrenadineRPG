@@ -1,0 +1,152 @@
+{
+  "0-9": {
+    "Jean Marie": {
+      "infos": {
+        "niveau": "0-3",
+        "vie": "100-130",
+        "comportement": "offensif",
+        "experience": 50
+      },
+      "spells": {
+        "Bamako !": {
+          "baseDamage": "25-45",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "JEANNE AU SECOURS !": {
+          "baseDamage": "50-65",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "Coup spécial de Jeanne !": {
+          "baseDamage": "20-30",
+          "special": "etourdi",
+          "specialChance": 80,
+          "comportement": "deffensif"
+        }
+      }
+    },
+    "Nadine Morano": {
+      "infos": {
+        "niveau": "2-4",
+        "vie": "150-190",
+        "comportement": "defensif",
+        "experience": 50
+      },
+      "spells": {
+        "Je ne suis pas raciste mais ..": {
+          "baseDamage": "20-35",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "Ma meilleur ami est tchadienne": {
+          "baseDamage": "45-65",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "C'est encore plus noire qu'une arabe": {
+          "baseDamage": "10-20",
+          "special": "etourdi",
+          "specialChance": 80,
+          "comportement": "deffensif"
+        }
+      }
+    },
+    "Emmanuel Macron": {
+      "infos": {
+        "niveau": "2-4",
+        "vie": "150-190",
+        "comportement": "defensif",
+        "experience": 50
+      },
+      "spells": {
+        "PARCE QUE C'EST NOTRE PROJET !!": {
+          "baseDamage": "20-40",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "C'est de la poudre de perlimpinpin": {
+          "baseDamage": "35-55",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "PARTOUT !": {
+          "baseDamage": "50-70",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "CAR VOUS ALLEZ LE FAIRE GAGNER": {
+          "baseDamage": "20-30",
+          "special": "etourdi",
+          "specialChance": 80,
+          "comportement": "deffensif"
+        }
+      }
+    },
+    "Marine LE PEN": {
+      "infos": {
+        "niveau": "2-4",
+        "vie": "150-190",
+        "comportement": "defensif",
+        "experience": 50
+      },
+      "spells": {
+        "Dans les campagnes, dans les villes, sur les réseaux sociaux": {
+          "baseDamage": "20-40",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "Marion ! Attaque Jean Marie !": {
+          "baseDamage": "55-75",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "Tu vois ses étrangers ?": {
+          "baseDamage": "10-25",
+          "special": "etourdi",
+          "specialChance": 80,
+          "comportement": "deffensif"
+        }
+      }
+    }
+  },
+  "110-119": {
+    "Le DAB en personne": {
+      "infos": {
+        "niveau": "115-120",
+        "vie": "2300-2500",
+        "comportement": "offensif",
+        "experience": 1000000
+      },
+      "spells": {
+        "J'effectue le DEB": {
+          "baseDamage": "700-1200",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "Give me a DAB": {
+          "baseDamage": "1500-1900",
+          "special": "",
+          "specialChance": 100,
+          "comportement": "offensif"
+        },
+        "BANG BANG": {
+          "baseDamage": "500-700",
+          "special": "etourdi",
+          "specialChance": 80,
+          "comportement": "deffensif"
+        }
+      }
+    }
+  }
+}
