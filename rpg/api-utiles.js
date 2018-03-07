@@ -241,7 +241,7 @@ exports.getChemins = () => {
 }
 
 
-function refreshTimeoutInstanceCommandes(){
+/*function refreshTimeoutInstanceCommandes(){
   for(let i in instance_commandes){
     if(instance_commandes[i]["timeout"] <= 0){
       if(instance_commandes[i]["commande"] === "fight"){
@@ -257,7 +257,7 @@ function refreshTimeoutInstanceCommandes(){
   //console.log(instance_commandes)
   setTimeout(refreshTimeoutInstanceCommandes, 1000)
 }
-refreshTimeoutInstanceCommandes()
+refreshTimeoutInstanceCommandes()*/
 
 /*
   CODE D'ERREUR:
