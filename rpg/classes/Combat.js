@@ -74,7 +74,7 @@ Combat.prototype.switchRound = function(){
 }
 
 Combat.prototype.sendCombat = function(){
-  this.author.send("[COMBAT] Le combat va démarrer [COMBAT] Pour lancer un sort: +sorts <Numéro du sort>")
+  this.author.send("[COMBAT] Le combat va démarrer [COMBAT] Pour lancer un sort: :sorts <Numéro du sort>")
   this.author.send("```[Nv." + this.monstre.getNiveau()  + "] " + this.monstre.getNom() + ": " + this.monstre.getVie() + "\n" +
                   "[Nv." + this.player.getNiveau() + "] " + this.author.username + ": " + this.player.getVie() + "\n" +
                   "C'est au tour à: " + (this.round == "player" ? "Vous" : this.monstre.getNom()) + "```").then(
