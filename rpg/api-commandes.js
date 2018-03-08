@@ -269,7 +269,7 @@ exports.onCommandes = (commande, optionsObj) => {
             try{
               APIPlayers.getClasseFromNumber(parseInt(args[2]), (bool, res) => {
                 if(bool){
-                  APIPlayers.createAccount(message.author.username, res, (bool) => {
+                  APIPlayers.createAccount(message.author.id, res, (bool) => {
                     if(bool){
                       message.reply("Votre compte a bien été créée")
                       APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {
