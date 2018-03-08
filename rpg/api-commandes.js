@@ -198,7 +198,7 @@ exports.onCommandes = (commande, optionsObj) => {
       APIPlayers.getPlayerByName(name, (bool, res) => {
         if(typeof bool === 'string'){
           message.reply("Le joueur demandé n'existe pas ou n'a pas encore créé(e) de personnage." +
-          "\n `" + RPG_PREFIX + "account create` pour vous créer un compte")
+          "\n `" + ":" + "account create` pour vous créer un compte")
         } else
         if(bool){
           let niveau = res.infos.niveau
@@ -225,7 +225,7 @@ exports.onCommandes = (commande, optionsObj) => {
     let args = message.content.split(" ")
     if(args[1] == null){
       message.reply("```"+
-                    RPG_PREFIX + "account create | Créer un compte" +
+                    ":" + "account create | Créer un compte" +
                     "```")
     }
     if(args[1] === "create"){
@@ -246,7 +246,7 @@ exports.onCommandes = (commande, optionsObj) => {
               } else {
                 APIUtiles.setInstancesCommandes(message.author.username, "commande", "account_create", 120)
                 message.reply("Votre compte est en cours de création .. \n"+
-                              "Ecrivez " + RPG_PREFIX + "account classes <chiffre correspond ci-dessous> pour choisir votre classe:\n"+
+                              "Ecrivez " + ":" + "account classes <chiffre correspond ci-dessous> pour choisir votre classe:\n"+
                               "```"+
                               "1: Chasseur\n"+
                               "2: Guerrier\n"+
@@ -277,7 +277,7 @@ exports.onCommandes = (commande, optionsObj) => {
                           APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
                             if(typeof bool === 'string'){
                               message.reply("Le joueur demandé n'existe pas ou n'a pas encore créé(e) de personnage." +
-                              "\n `" + RPG_PREFIX + "account create` pour vous créer un compte")
+                              "\n `" + ":" + "account create` pour vous créer un compte")
                             } else
                             if(bool){
                               let niveau = res.infos.niveau
@@ -325,7 +325,7 @@ exports.onCommandes = (commande, optionsObj) => {
       APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
         if(typeof bool === 'string'){
           message.reply("Le joueur demandé n'existe pas ou n'a pas encore créé(e) de personnage." +
-          "\n `" + RPG_PREFIX + "account create` pour vous créer un compte")
+          "\n `" + ":" + "account create` pour vous créer un compte")
         } else
         if(bool){
           let niveau = res.infos.niveau
@@ -380,8 +380,8 @@ exports.onCommandes = (commande, optionsObj) => {
       APIUtiles.isAdmin(message.author.username, (bool) => {
         if(bool){
           message.reply("Liste des sous-commandes:\n"+
-                    "``" + RPG_PREFIX + "rpg infos``: Connaitre les informations du robot\n"+
-                    "``" + RPG_PREFIX + "rpg startevent``: Lancer un évenement")
+                    "``" + ":" + "rpg infos``: Connaitre les informations du robot\n"+
+                    "``" + ":" + "rpg startevent``: Lancer un évenement")
         } else {
           message.reply("Vous n'êtes pas un administrateur")
         }
@@ -474,7 +474,7 @@ exports.onDMCommandes = (commande, optionsObj) => {
     let returned = false
     APIPlayers.existsPlayerFromName(message.author.username, (bool) => {
       if(!bool){
-        message.reply("Vous devez vous créer un compte ```" + RPG_PREFIX + "account create``` pour pouvoir utiliser cette commande")
+        message.reply("Vous devez vous créer un compte ```" + ":" + "account create``` pour pouvoir utiliser cette commande")
       }
     })
     APIUtiles.getInstanceCommandes(message.author.username, (bool, res) => {
