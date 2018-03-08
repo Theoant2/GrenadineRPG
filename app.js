@@ -53,6 +53,7 @@ bot.on('ready', function () {
       if(bool){
         RPG_PREFIX = res
         console.log("[APIUtiles] Le préfix '" + res + "' a été chargé")
+        bot.user.setPresence({ game: { name: (BOT_PREFIX + 'help'), type: 0 } })
       } else console.log(res)
     })
     APIUtiles.getChannelId((bool, res) => {
