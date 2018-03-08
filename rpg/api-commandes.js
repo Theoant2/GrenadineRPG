@@ -352,7 +352,7 @@ exports.onCommandes = (commande, optionsObj) => {
           for(let i in res){
             admins += res[i] + "\n"
           }
-          message.reply("Liste des administrateur du robot:\n" +
+          message.reply("Liste des administrateur du robot:\n\n" +
                   "``" + admins + "``")
         } else {
           message.reply("Une erreur est survenue")
@@ -374,9 +374,9 @@ exports.onCommandes = (commande, optionsObj) => {
     } else {
       APIUtiles.isAdmin(message.author.username, (bool) => {
         if(bool){
-          message.reply("Liste des sous-commandes:\n"+
-                    "``+rpg infos``: Connaitre les informations du robot\n"+
-                    "``+rpg startevent``: Lancer un évenement")
+          message.reply("Liste des sous-commandes:\n\n"+
+                    "``:rpg infos``: Connaitre les informations du robot\n"+
+                    "``:rpg startevent``: Lancer un évenement")
         } else {
           message.reply("Vous n'êtes pas un administrateur")
         }
