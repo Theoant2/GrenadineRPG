@@ -220,7 +220,7 @@ exports.onCommandes = (commande, optionsObj) => {
     let args = message.content.split(" ")
     if(args[1] == null){
       message.reply("```"+
-                    "+account create | Créer un compte" +
+                    ":account create | Créer un compte" +
                     "```")
     }
     if(args[1] === "create"){
@@ -241,7 +241,7 @@ exports.onCommandes = (commande, optionsObj) => {
               } else {
                 APIUtiles.setInstancesCommandes(message.author.username, "commande", "account_create", 120)
                 message.reply("Votre compte est en cours de création .. \n"+
-                              "Ecrivez +account classes <chiffre correspond ci-dessous> pour choisir votre classe:\n"+
+                              "Ecrivez **:account classes <chiffre correspond ci-dessous>** pour choisir votre classe:\n"+
                               "```"+
                               "1: Chasseur\n"+
                               "2: Guerrier\n"+
