@@ -109,7 +109,7 @@ bot.on('message', message => {
        let embed = new Discord.RichEmbed().
        setTitle("[°] Informations sur les commandes [°]")
        .setAuthor(bot.user.username, bot.user.avatarURL)
-       .setColor(0xf3ee27)
+       .setColor(0x94ff00)
        .setDescription("\n" + "[°] **RolePlay Game** [°]\n" +
        "``+account`` Affiche les infos sur la commande +account\n\n" +
        "``+fight``  Lance un combat contre un monstre aléatoire sur la tranche de votre niveau\n\n" +
