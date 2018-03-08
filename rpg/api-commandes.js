@@ -41,8 +41,8 @@ exports.onCommandes = (commande, optionsObj) => {
   let message = optionsObj.msg
   console.log("Commande lancé par " + message.author.username + ":",commande)
 
-  if(!PlayerManager.existFromName(message.author.username)){
-    APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+  if(!PlayerManager.existFromName(message.author.id)){
+    APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
       if(bool && typeof bool != 'string'){
         let player = new Player(res, message.author)
         PlayerManager.addPlayer(player)
@@ -50,13 +50,13 @@ exports.onCommandes = (commande, optionsObj) => {
       }
     })
   } else {
-    APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+    APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
       if(bool){
         let player = new Player(res, message.author)
-        PlayerManager.updatePlayer(PlayerManager.getPlayerFromName(message.author.username), player)
+        PlayerManager.updatePlayer(PlayerManager.getPlayerFromName(message.author.id), player)
       }
     })
-    PlayerManager.getPlayerFromName(message.author.username).setAuthor(message.author)
+    PlayerManager.getPlayerFromName(message.author.id).setAuthor(message.author)
   }
   /*
     COMMANDE: setprefix
@@ -65,7 +65,7 @@ exports.onCommandes = (commande, optionsObj) => {
     EXEMPLE: setprefix <nouveau prefix>
   */
   if(commande === "setprefix"){
-    APIUtiles.isAdmin(message.author.username, (bool) => {
+    APIUtiles.isAdmin(message.author.id, (bool) => {
       if(bool){
         APIUtiles.setPrefix(message.content.split(" ")[1], (bool, res) => {
           if(bool){
@@ -92,7 +92,7 @@ exports.onCommandes = (commande, optionsObj) => {
     EXEMPLE: setchannel <nom du channel textuel>
   */
   if(commande === "setchannel"){
-    APIUtiles.isAdmin(message.author.username, (bool) => {
+    APIUtiles.isAdmin(message.author.id, (bool) => {
       if(bool){
         APIUtiles.setChannelId(message.content.split(" ")[1], (bool, res) => {
           if(bool){
@@ -119,7 +119,7 @@ exports.onCommandes = (commande, optionsObj) => {
   EXEMPLE: test
   */
   if(commande === "test"){
-    APIPlayers.enableSort(message.author.username, 5, (bool) => {
+    APIPlayers.enableSort(message.author.id, 5, (bool) => {
       if(bool){
         message.reply("OK")
       } else {
@@ -137,13 +137,13 @@ exports.onCommandes = (commande, optionsObj) => {
     let returned = false
     APIPlayers.existsPlayerFromName(message.author.username, (bool) => {
       if(!bool){
-        message.reply("Vous devez vous créer un compte ```+account create``` pour pouvoir utiliser cette commande")
-        APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+        message.reply("Vous devez vous créer un compte ```:account create``` pour pouvoir utiliser cette commande")
+        APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
       }
     })
     APIUtiles.getInstanceCommandes(message.author.username, (bool, res) => {
       if(res === "fight")
-        APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+        APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
       if(bool){
         APIUtiles.getPhraseByID(res, (phrase) => {
           if(phrase != null){
@@ -152,11 +152,11 @@ exports.onCommandes = (commande, optionsObj) => {
         })
         returned = true
       } else {
-        APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+        APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
       }
     })
     if(returned) return
-    APIPlayers.getLevelOfPlayer(message.author.username, (niveau) => {
+    APIPlayers.getLevelOfPlayer(message.author.id, (niveau) => {
       APIMonstres.getMontresFromLevel(niveau, (bool, res) => {
         if(typeof bool === 'string'){
           replyErrorInChat(message, res)
@@ -171,9 +171,9 @@ exports.onCommandes = (commande, optionsObj) => {
             message.reply("Vous avez lancé un combat contre " + monstre.getNom() + " [Niveau: " + monstre.getNiveau() + ", Vie: " + monstre.getVie() + "]"+
               "\n Pour effectuer le combat, rendez-vous dans vos messages privées avec moi"+
               "\n Si aucune activité au bout de 1 minutes, le combat sera compté comme abandonné")
-              let combat = new Combat(monstre, PlayerManager.getPlayerFromName(message.author.username))
+              let combat = new Combat(monstre, PlayerManager.getPlayerFromName(message.author.id))
               combat.sendCombat()
-              CombatManager.addCombat(combat, message.author.username)
+              CombatManager.addCombat(combat, message.author.id)
           } catch (e){
             message.reply("Une erreur est survenue")
             console.log(e)
@@ -181,7 +181,7 @@ exports.onCommandes = (commande, optionsObj) => {
         } else {
           console.log("[APIUtiles] Une erreur est survenue à la demande du JSON pour les monstres par niveaux")
           console.log(res)
-          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
         }
       })
     })
@@ -211,7 +211,7 @@ exports.onCommandes = (commande, optionsObj) => {
         } else {
           console.log("[APIUtiles] Une erreur est survenue à la demande du JSON pour les joueurs par noms")
           console.log(res)
-          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
         }
       })
     }
@@ -229,12 +229,12 @@ exports.onCommandes = (commande, optionsObj) => {
                     "```")
     }
     if(args[1] === "create"){
-      APIPlayers.existsPlayerFromName(message.author.username, (bool) => {
+      APIPlayers.existsPlayerFromName(message.author.id, (bool) => {
           if(!bool){
             let returned = false
-            APIUtiles.getInstanceCommandes(message.author.username, (bool, res) => {
+            APIUtiles.getInstanceCommandes(message.author.id, (bool, res) => {
               if(res === "account_create")
-                APIUtiles.setInstancesCommandes(message.author.username, "commande", "account_create", 120)
+                APIUtiles.setInstancesCommandes(message.author.id, "commande", "account_create", 120)
               if(bool){
                 APIUtiles.getPhraseByID(res, (phrase) => {
                   if(phrase != null){
@@ -242,9 +242,9 @@ exports.onCommandes = (commande, optionsObj) => {
                   }
                 })
                 returned = true
-                APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+                APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
               } else {
-                APIUtiles.setInstancesCommandes(message.author.username, "commande", "account_create", 120)
+                APIUtiles.setInstancesCommandes(message.author.id, "commande", "account_create", 120)
                 message.reply("Votre compte est en cours de création .. \n"+
                               "Ecrivez " + ":" + "account classes <chiffre correspond ci-dessous> pour choisir votre classe:\n"+
                               "```"+
@@ -257,14 +257,14 @@ exports.onCommandes = (commande, optionsObj) => {
             })
           } else {
             message.reply("Vous avez déjà un compte associé à votre pseudonyme discord")
-            APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+            APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
           }
       })
     }
     if(args[1] === "classes"){
-      APIUtiles.getInstanceCommandes(message.author.username, (bool, res) => {
+      APIUtiles.getInstanceCommandes(message.author.id, (bool, res) => {
         if(bool){
-          APIUtiles.setInstancesCommandes(message.author.username, "commande", "account_create", 120)
+          APIUtiles.setInstancesCommandes(message.author.id, "commande", "account_create", 120)
           if(args[2] != null){
             try{
               APIPlayers.getClasseFromNumber(parseInt(args[2]), (bool, res) => {
@@ -272,9 +272,9 @@ exports.onCommandes = (commande, optionsObj) => {
                   APIPlayers.createAccount(message.author.id, res, (bool) => {
                     if(bool){
                       message.reply("Votre compte a bien été créée")
-                      APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {
+                      APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {
                         if(bool){
-                          APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+                          APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
                             if(typeof bool === 'string'){
                               message.reply("Le joueur demandé n'existe pas ou n'a pas encore créé(e) de personnage." +
                               "\n `" + ":" + "account create` pour vous créer un compte")
@@ -294,35 +294,35 @@ exports.onCommandes = (commande, optionsObj) => {
                           })
                         } else {
                           message.reply("Une erreur est survenue")
-                          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+                          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
                         }
                       })
                     } else {
                       message.reply("Une erreur est survenue")
-                      APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+                      APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
                     }
                   })
                 } else {
                   message.reply("Une erreur est survenue")
-                  APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+                  APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
                 }
               })
             } catch (e){
               message.reply("Veuillez rentrez un nombre en second argument")
-              APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+              APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
             }
           } else {
             message.reply("Veuillez rentrez un nombre en second argument")
-            APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+            APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
           }
         } else {
           message.reply("Vous devez être en train de créer votre compte pour pouvoir user de cette commande")
-          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
         }
       })
     }
     if(args[1] === "infos"){
-      APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+      APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
         if(typeof bool === 'string'){
           message.reply("Le joueur demandé n'existe pas ou n'a pas encore créé(e) de personnage." +
           "\n `" + ":" + "account create` pour vous créer un compte")
@@ -331,7 +331,7 @@ exports.onCommandes = (commande, optionsObj) => {
           let niveau = res.infos.niveau
           let classe = res.infos.classe
           let zone = res.infos.zone
-          let player = PlayerManager.getPlayerFromName(message.author.username)
+          let player = PlayerManager.getPlayerFromName(message.author.id)
           message.reply("Voci les informatons que vous avez demandez sur le joueur " + message.author.username +
           "\n Niveau: ``" + niveau + "``" +
           "\n Classe: ``" + classe + "``" +
@@ -340,7 +340,7 @@ exports.onCommandes = (commande, optionsObj) => {
         } else {
           console.log("[APIUtiles] Une erreur est survenue à la demande du JSON pour les joueurs par noms")
           console.log(res)
-          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
         }
       })
     }
@@ -365,7 +365,7 @@ exports.onCommandes = (commande, optionsObj) => {
       })
     } else
     if(args[1] === "startevent"){
-      APIUtiles.isAdmin(message.author.username, (bool) => {
+      APIUtiles.isAdmin(message.author.id, (bool) => {
         if(bool){
           if(args[2] != null){
 
@@ -377,7 +377,7 @@ exports.onCommandes = (commande, optionsObj) => {
         }
       })
     } else {
-      APIUtiles.isAdmin(message.author.username, (bool) => {
+      APIUtiles.isAdmin(message.author.id, (bool) => {
         if(bool){
           message.reply("Liste des sous-commandes:\n"+
                     "``" + ":" + "rpg infos``: Connaitre les informations du robot\n"+
@@ -396,9 +396,9 @@ exports.onCommandes = (commande, optionsObj) => {
 */
 exports.onDMCommandes = (commande, optionsObj) => {
   let message = optionsObj.msg
-  console.log("Commande lancé par " + message.author.username + ":",commande)
-  if(!PlayerManager.existFromName(message.author.username)){
-    APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+  console.log("Commande lancé par " + message.author.id + ":",commande)
+  if(!PlayerManager.existFromName(message.author.id)){
+    APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
       if(bool && typeof bool != 'string'){
         let player = new Player(res, message.author)
         PlayerManager.addPlayer(player)
@@ -406,13 +406,13 @@ exports.onDMCommandes = (commande, optionsObj) => {
       }
     })
   } else {
-    APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+    APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
       if(bool){
         let player = new Player(res, message.author)
-        PlayerManager.updatePlayer(PlayerManager.getPlayerFromName(message.author.username), player)
+        PlayerManager.updatePlayer(PlayerManager.getPlayerFromName(message.author.id), player)
       }
     })
-    PlayerManager.getPlayerFromName(message.author.username).setAuthor(message.author)
+    PlayerManager.getPlayerFromName(message.author.id).setAuthor(message.author)
   }
   /*
     COMMANDE: sorts <numéro du sort>
@@ -420,18 +420,18 @@ exports.onDMCommandes = (commande, optionsObj) => {
     EXEMPLES: sorts 1
   */
   if(commande === "sorts" || commande === "sort"){
-    if(CombatManager.existFromName(message.author.username)){
+    if(CombatManager.existFromName(message.author.id)){
       let args = message.content.split(" ")
       let number = args[1]
-      let combat = CombatManager.getCombatFromName(message.author.username)
+      let combat = CombatManager.getCombatFromName(message.author.id)
       if(combat.getRound() == "bot"){
         message.reply("Vous ne pouvez pas attaquer, c'est à mon tour.")
-        APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+        APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
         return
       }
-      APIPlayers.getPlayerByName(message.author.username, (bool, res) => {
+      APIPlayers.getPlayerByName(message.author.id, (bool, res) => {
         if(bool){
-          APIPlayers.isEnabledSort(message.author.username, (parseInt(number)-1), (bool, enabled) => {
+          APIPlayers.isEnabledSort(message.author.id, (parseInt(number)-1), (bool, enabled) => {
             if(bool){
               if(enabled){
                 let vie = APISpells.generateBaseDamage(APISpells.SPELLS[res.infos.classe.toUpperCase()][Object.keys(APISpells.SPELLS[res.infos.classe.toUpperCase()])[number-1]].baseDamage, res.infos.niveau)
@@ -441,45 +441,45 @@ exports.onDMCommandes = (commande, optionsObj) => {
                 }
                 combat.editCombat((bool) => {
                   if(bool){
-                    CombatManager.removeCombatFromName(message.author.username)
-                    APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+                    CombatManager.removeCombatFromName(message.author.id)
+                    APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
                     console.log("SUPRIMMERRRR")
-                    APIPlayers.isLevelUp(message.author.username, (bool) => {})
+                    APIPlayers.isLevelUp(message.author.id, (bool) => {})
                   } else {
                     let displayname = APISpells.SPELLS[res.infos.classe.toUpperCase()][Object.keys(APISpells.SPELLS[res.infos.classe.toUpperCase()])[number-1]].displayname
                     combat.editLastAttack(displayname, vie)
-                      APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+                      APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
                       console.log("PAS SUPRIMMERRRR")
                   }
                 })
               } else {
                 message.reply("Vous n'êtes pas en possession de ce sort")
-                APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+                APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
               }
             } else {
-              APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+              APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
             }
           })
         } else {
           message.reply("Une erreur est survenue")
-          APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+          APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
         }
       })
     } else {
       message.reply("Vous n'avez pas lancé de combat")
-      APIUtiles.removeInstancesCommandes(message.author.username, (bool) => {})
+      APIUtiles.removeInstancesCommandes(message.author.id, (bool) => {})
     }
   }
   if(commande === "fight"){
     let returned = false
-    APIPlayers.existsPlayerFromName(message.author.username, (bool) => {
+    APIPlayers.existsPlayerFromName(message.author.id, (bool) => {
       if(!bool){
         message.reply("Vous devez vous créer un compte ```" + ":" + "account create``` pour pouvoir utiliser cette commande")
       }
     })
-    APIUtiles.getInstanceCommandes(message.author.username, (bool, res) => {
+    APIUtiles.getInstanceCommandes(message.author.id, (bool, res) => {
       if(res === "fight")
-        APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+        APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
       if(bool){
         APIUtiles.getPhraseByID(res, (phrase) => {
           if(phrase != null){
@@ -488,11 +488,11 @@ exports.onDMCommandes = (commande, optionsObj) => {
         })
         returned = true
       } else {
-        APIUtiles.setInstancesCommandes(message.author.username, "commande", "fight", 60)
+        APIUtiles.setInstancesCommandes(message.author.id, "commande", "fight", 60)
       }
     })
     if(returned) return
-    APIPlayers.getLevelOfPlayer(message.author.username, (niveau) => {
+    APIPlayers.getLevelOfPlayer(message.author.id, (niveau) => {
       APIMonstres.getMontresFromLevel(niveau, (bool, res) => {
         if(typeof bool === 'string'){
           replyErrorInChat(message, res)
@@ -504,9 +504,9 @@ exports.onDMCommandes = (commande, optionsObj) => {
               message.reply("Une erreur est survenue")
               return
             }
-            let combat = new Combat(monstre, PlayerManager.getPlayerFromName(message.author.username))
+            let combat = new Combat(monstre, PlayerManager.getPlayerFromName(message.author.id))
             combat.sendCombat()
-            CombatManager.addCombat(combat, message.author.username)
+            CombatManager.addCombat(combat, message.author.id)
           } catch (e){
             message.reply("Une erreur est survenue")
             console.log(e)
