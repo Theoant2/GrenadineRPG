@@ -90,7 +90,7 @@ bot.on('message', message => {
         FIN PARTIE RPG
 
   */
-    if (message.content.startsWith('+split')){
+    if (message.content.startsWith(RPG_PREFIX + 'split')){
       let argsSplit = message.content.split(' ')
       let voiceID = argsSplit[1].split(',')
       let array = Array.from(message.member.voiceChannel.members)
@@ -105,7 +105,7 @@ bot.on('message', message => {
       }
       message.channel.send("Le channel a été divisé par deux vers le channel ``" + channel.name + "``")
     }
-    if (message == "+help"){
+    if (message == (RPG_PREFIX + "help")){
        let embed = new Discord.RichEmbed().
        setTitle("[°] Informations sur les commandes [°]")
        .setAuthor(bot.user.username, bot.user.avatarURL)
