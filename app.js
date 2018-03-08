@@ -48,7 +48,6 @@ function shuffleArray(a) {
 
 bot.on('ready', function () {
     console.log("Je suis connecté !")
-    bot.user.setPresence({ game: { name: '+help', type: 0 } })
     APIUtiles.getPrefix((bool, res) => {
       if(bool){
         RPG_PREFIX = res
