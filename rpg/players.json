@@ -1,1 +1,30 @@
-{}
+{
+    "BatRazmo": {
+        "infos": {
+            "classe": "Assassin",
+            "niveau": 0,
+            "experience": 0,
+            "zone": "Ville du départ"
+        },
+        "spells": {
+            "SAUT_BESTIAL": {
+                "enable": true
+            },
+            "GRIFFES_TYRANNIQUES": {
+                "enable": false
+            },
+            "LAME_DECHIRANTE": {
+                "enable": false
+            },
+            "ROULADE_PERILLEUSE": {
+                "enable": false
+            },
+            "LANCER_DE_SHURIKENS": {
+                "enable": false
+            },
+            "FIOLE_DE_POISON": {
+                "enable": false
+            }
+        }
+    }
+}
